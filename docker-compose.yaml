@@ -1,6 +1,6 @@
 services:
   marimo:
-    image: ghcr.io/fineyoungcannibals/marimo-docker:latest
+    image: ghcr.io/fineyoungcannibals/dev-marimo:latest
     restart: unless-stopped
     volumes:
       - /opt/docker/marimo/dev_notebooks:/home/app_user/notebooks
