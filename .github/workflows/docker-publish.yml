@@ -4,6 +4,14 @@ on:
   push:
     branches:
       - main  # Trigger on pushes to main
+    paths-ignore:
+      - '.github/workflows/**'
+      - 'docs/**'
+      - '*.md'
+      - 'docker-publish.yml'
+      - '.gitignore'
+
+  workflow_dispatch:
 
 jobs:
   build-and-push:
