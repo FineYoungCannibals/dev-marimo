@@ -6,7 +6,7 @@ ENV VIRTUAL_ENV=/home/app_user/venv
 RUN apt update && \
     apt upgrade -y && \
     apt install -y curl \
-    iputils-ping && \
+    iputils-ping jq && \
     rm -rf /var/lib/apt/lists/*
 
 RUN useradd -m app_user
