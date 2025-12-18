@@ -4,6 +4,7 @@ jq
 langchain
 langchain-community
 langchain-text-splitters
+jmespath
 marimo
 marimo[recommended]
 marimo[sql]
