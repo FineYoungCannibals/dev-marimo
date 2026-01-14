@@ -37,4 +37,4 @@ EXPOSE 2718
 
 # Use the entrypoint script to update dependencies upon container rebuilds
 ENTRYPOINT ["/entrypoint.sh"]
-CMD ["marimo", "edit", "--host", "0.0.0.0", "--port", "2718"]
+# CMD ["marimo", "edit", "--host", "0.0.0.0", "--port", "2718"]
