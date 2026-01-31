@@ -6,10 +6,13 @@ set -e
 # but it ensures that any activation-specific shell modifications are applied.
 . "$VIRTUAL_ENV/bin/activate"
 
+APP_DIR="/home/app_user/app"
+
 # Install or update dependencies at startup.
-if [ -f /home/app_user/requirements.txt ]; then
+if [ -f "$APP_DIR/pyproject.toml" ]; then
   echo "Installing/updating Python dependencies..."
-  uv pip install -U -r /home/app_user/requirements.txt
+  cd "$APP_DIR"
+  uv sync --frozen --no-dev --no-install-project
 fi
 
 # Execute the main command passed via CMD.

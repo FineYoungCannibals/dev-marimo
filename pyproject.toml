@@ -1,0 +1,32 @@
+[project]
+name = "dev-marimo"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.14"
+dependencies = [
+  "faiss-cpu",
+  "httpx",
+  "jq",
+  "langchain",
+  "langchain-community",
+  "langchain-text-splitters",
+  "jmespath",
+  "marimo",
+  "marimo[recommended]",
+  "marimo[sql]",
+  "matplotlib",
+  "nest_asyncio",
+  "ollama",
+  "pandas",
+  "plotly",
+  "ppp-connectors",
+  "psycopg2-binary",
+  "pymongo",
+  "pymysql",
+  "pyvis",
+  "requests",
+  "SQLAlchemy",
+  "tabulate",
+  "trino",
+]

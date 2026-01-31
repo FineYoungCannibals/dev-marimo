@@ -1,0 +1,19 @@
+# ---------- Development compose file ----------
+services:
+  marimo:
+    build: .
+    image: marimo-docker:dev
+    restart: unless-stopped
+    ports:
+      - "${MARIMO_PORT:-2718}:2718"
+    volumes:
+      - ./notebooks:/home/app_user/notebooks
+      - ./utils:/home/app_user/notebooks/utils
+    env_file:
+      - .env
+    command: bash -c 'source /home/app_user/venv/bin/activate && marimo edit --headless --token --token-password ${MARIMO_TOKEN_PASSWORD} -p 2718 --host 0.0.0.0'
+    healthcheck:
+      test: [ "CMD", "curl", "-f", "http://localhost:2718/health" ]
+      interval: 30s
+      timeout: 3s
+      retries: 3

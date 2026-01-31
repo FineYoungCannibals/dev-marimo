@@ -1,0 +1,34 @@
+# --------- Production compose file ----------
+services:
+  marimo:
+    image: ghcr.io/fineyoungcannibals/dev-marimo:latest
+    restart: unless-stopped
+    ports:
+      - "127.0.0.1:${MARIMO_PORT}:2718"
+      - "${MARIMO_HOST}:${MARIMO_PORT}:2718"
+    volumes:
+      - /opt/docker/marimo/dev_notebooks:/home/app_user/notebooks
+      - /opt/docker/marimo/utils:/home/app_user/notebooks/utils
+    environment:
+      MARIMO_HOST: ${MARIMO_HOST}
+      MARIMO_PORT: ${MARIMO_PORT}
+      MARIMO_TOKEN_PASSWORD: ${MARIMO_TOKEN_PASSWORD}
+    command: bash -c 'source /home/app_user/venv/bin/activate && marimo edit --headless --token --token-password ${MARIMO_TOKEN_PASSWORD} -p 2718 --host 0.0.0.0'
+    healthcheck:
+      test: [ "CMD", "curl", "-f", "http://127.0.0.1:2718/health" ]
+      interval: 30s
+      timeout: 3s
+      retries: 3
+    networks:
+      - dev_lab
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.bmapi.rule=HOST(`marimo.trashcollector.dev`)"
+      - "traefik.http.routers.bmapi.entrypoints=https"
+      - "traefik.http.routers.bmapi.tls.certresolver=letsencrypt"
+      - "traefik.http.services.bmapi.loadbalancer.server.port=${MARIMO_PORT}"
+      - "traefik.docker.network=dev_lab"
+
+networks:
+  dev_lab:
+    external: true
