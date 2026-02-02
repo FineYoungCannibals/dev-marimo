@@ -23,10 +23,10 @@ services:
       - dev_lab
     labels:
       - "traefik.enable=true"
-      - "traefik.http.routers.bmapi.rule=HOST(`marimo.trashcollector.dev`)"
-      - "traefik.http.routers.bmapi.entrypoints=https"
-      - "traefik.http.routers.bmapi.tls.certresolver=letsencrypt"
-      - "traefik.http.services.bmapi.loadbalancer.server.port=${MARIMO_PORT}"
+      - "traefik.http.routers.marimortr.rule=HOST(`marimo.trashcollector.dev`)"
+      - "traefik.http.routers.marimortr.entrypoints=https"
+      - "traefik.http.routers.marimortr.tls.certresolver=letsencrypt"
+      - "traefik.http.services.marimortr.loadbalancer.server.port=${MARIMO_PORT}"
       - "traefik.docker.network=dev_lab"
 
 networks:
