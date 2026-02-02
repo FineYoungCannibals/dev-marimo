@@ -30,3 +30,6 @@ dependencies = [
   "tabulate",
   "trino",
 ]
+
+[tool.marimo.runtime]
+dotenv = ["/home/app_user/.config/marimo/.env"]
