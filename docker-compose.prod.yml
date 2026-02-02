@@ -9,7 +9,6 @@ services:
     volumes:
       - /opt/docker/marimo/.env:/home/app_user/app/.env
       - /opt/docker/marimo/dev_notebooks:/home/app_user/app/notebooks
-      - /opt/docker/marimo/utils:/home/app_user/app/notebooks/utils
       - /opt/docker/marimo/config:/home/app_user/.config/marimo
     environment:
       MARIMO_HOST: ${MARIMO_HOST}
