@@ -24,10 +24,10 @@ USER app_user
 COPY --from=builder --chown=app_user:app_user $VIRTUAL_ENV $VIRTUAL_ENV
 
 # Create notebook directory, copy utils into it, and make it serve modules
-RUN mkdir -p /home/app_user/notebooks/utils /home/app_user/app
+RUN mkdir -p /home/app_user/app/notebooks/utils /home/app_user/app
 
 # Set PYTHONPATH so Python can find modules in /home/app_user/notebooks/utils
-ENV PYTHONPATH="/home/app_user/notebooks/utils:${PYTHONPATH}"
+ENV PYTHONPATH="/home/app_user/app/notebooks/utils:${PYTHONPATH}"
 
 COPY --chown=app_user:app_user pyproject.toml uv.lock /home/app_user/app/
 
@@ -35,7 +35,7 @@ COPY --chown=app_user:app_user pyproject.toml uv.lock /home/app_user/app/
 COPY --chown=app_user:app_user entrypoint.sh /entrypoint.sh
 RUN chmod +x /entrypoint.sh
 
-WORKDIR /home/app_user/notebooks
+WORKDIR /home/app_user/app/notebooks
 EXPOSE 2718
 
 # Use the entrypoint script to update dependencies upon container rebuilds
