@@ -12,9 +12,6 @@ dependencies = [
   "langchain-community",
   "langchain-text-splitters",
   "jmespath",
-  "marimo",
-  "marimo[recommended]",
-  "marimo[sql]",
   "matplotlib",
   "nest_asyncio",
   "ollama",
@@ -29,6 +26,7 @@ dependencies = [
   "SQLAlchemy",
   "tabulate",
   "trino",
+  "marimo[recommended]>=0.23.0",
 ]
 
 [tool.marimo.runtime]
