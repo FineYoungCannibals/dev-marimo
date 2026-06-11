@@ -30,9 +30,6 @@ services:
       - "traefik.http.services.marimortr.loadbalancer.server.port=${MARIMO_PORT}"
       - "traefik.docker.network=dev_lab"
 
-      # Attach Authentik Middleware to the Router
-      - "traefik.http.routers.marimo.middlewares=authentik@docker"
-
 networks:
   dev_lab:
     external: true
