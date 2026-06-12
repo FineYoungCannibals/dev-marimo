@@ -10,7 +10,7 @@ services:
     environment:
       MARIMO_HOST: ${MARIMO_HOST}
       MARIMO_PORT: ${MARIMO_PORT}
-    command: bash -c 'source /home/app_user/venv/bin/activate && marimo edit --headless -p 2718 --host 0.0.0.0'
+    command: bash -c 'source /home/app_user/venv/bin/activate && marimo edit --no-token --headless -p 2718 --host 0.0.0.0'
     healthcheck:
       test: [ "CMD", "curl", "-f", "http://127.0.0.1:2718/health" ]
       interval: 30s
