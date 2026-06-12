@@ -1,0 +1,43 @@
+name: Update Marimo to Latest
+
+on:
+  schedule:
+    - cron: '0 6 * * 1'  # Every Monday at 6am UTC
+  workflow_dispatch:
+
+jobs:
+  update-marimo:
+    runs-on: ubuntu-latest
+
+    permissions:
+      contents: write
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Install uv
+        uses: astral-sh/setup-uv@v5
+
+      - name: Upgrade marimo in lock file
+        run: uv lock --upgrade-package marimo
+
+      - name: Check for changes
+        id: diff
+        run: |
+          if git diff --quiet uv.lock; then
+            echo "changed=false" >> $GITHUB_OUTPUT
+          else
+            NEW_VERSION=$(grep -A2 '^name = "marimo"' uv.lock | grep 'version' | head -1 | sed 's/.*"\(.*\)".*/\1/')
+            echo "changed=true" >> $GITHUB_OUTPUT
+            echo "version=$NEW_VERSION" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Commit and push updated lock file
+        if: steps.diff.outputs.changed == 'true'
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add uv.lock
+          git commit -m "chore: update marimo to ${{ steps.diff.outputs.version }}"
+          git push
