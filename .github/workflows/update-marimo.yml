@@ -11,6 +11,7 @@ jobs:
 
     permissions:
       contents: write
+      pull-requests: write
 
     steps:
       - name: Checkout code
@@ -33,11 +34,22 @@ jobs:
             echo "version=$NEW_VERSION" >> $GITHUB_OUTPUT
           fi
 
-      - name: Commit and push updated lock file
+      - name: Create PR with updated lock file
         if: steps.diff.outputs.changed == 'true'
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
+
+          BRANCH="chore/update-marimo-${{ steps.diff.outputs.version }}"
+          git checkout -b "$BRANCH"
           git add uv.lock
           git commit -m "chore: update marimo to ${{ steps.diff.outputs.version }}"
-          git push
+          git push origin "$BRANCH"
+
+          gh pr create \
+            --title "chore: update marimo to ${{ steps.diff.outputs.version }}" \
+            --body "Automated update of marimo to version ${{ steps.diff.outputs.version }}. Merge to trigger a fresh Docker build and push." \
+            --base main \
+            --head "$BRANCH"
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
