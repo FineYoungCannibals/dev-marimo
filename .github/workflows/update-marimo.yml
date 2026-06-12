@@ -44,7 +44,7 @@ jobs:
           git checkout -b "$BRANCH"
           git add uv.lock
           git commit -m "chore: update marimo to ${{ steps.diff.outputs.version }}"
-          git push origin "$BRANCH"
+          git push --force origin "$BRANCH"
 
           gh pr create \
             --title "chore: update marimo to ${{ steps.diff.outputs.version }}" \
