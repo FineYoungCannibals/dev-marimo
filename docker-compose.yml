@@ -7,11 +7,11 @@ services:
     ports:
       - "${MARIMO_PORT:-2718}:2718"
     volumes:
-      - ./notebooks:/home/app_user/notebooks
-      - ./utils:/home/app_user/notebooks/utils
+      - ./notebooks:/home/app_user/app/notebooks
+      - ./.marimo.toml:/home/app_user/.marimo.toml
     env_file:
       - .env
-    command: bash -c 'source /home/app_user/venv/bin/activate && marimo edit --no-token --headless -p 2718 --host 0.0.0.0'
+    command: bash -c 'source /home/app_user/venv/bin/activate && marimo edit --no-token --headless -p ${MARIMO_PORT:-2718} --host ${MARIMO_HOST:-0.0.0.0}'
     healthcheck:
       test: [ "CMD", "curl", "-f", "http://localhost:2718/health" ]
       interval: 30s
