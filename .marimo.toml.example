@@ -1,0 +1,105 @@
+# Copy this file to `.marimo.toml` (already gitignored) to configure your
+# local dev marimo instance -- docker-compose.yml bind-mounts it in at
+# /home/app_user/.marimo.toml, which is marimo's trusted per-user config path,
+# so it persists across rebuilds instead of resetting to defaults.
+#
+# For prod, place a copy at /opt/docker/marimo/.marimo.toml on the host --
+# see README.md. Note: prod currently runs with `ai.mode = "manual"` rather
+# than "agent" -- adjust if you want them to match.
+
+[formatting]
+line_length = 79
+
+[experimental]
+# performant_table_charts / server_side_pdf_export / chat_modes were removed
+# here -- they shipped and are always-on now, the flag is a no-op.
+external_agents = true
+rtc_v2 = false
+
+[ai]
+rules = ""
+inline_tooltip = false
+mode = "agent"
+
+[ai.ollama]
+base_url = "http://100.114.25.70:11434/v1"
+
+[ai.custom_providers.finleygpt]
+base_url = "http://islasorna.cheetoh-clownfish.ts.net/v1"
+
+[ai.custom_providers.lemonade]
+base_url = "http://framework.cheetoh-clownfish.ts.net:8000/api/v1"
+api_key = "not-needed"
+
+[ai.google]
+
+[ai.models]
+chat_model = "lemonade/Qwen3.6-35B-A3B-GGUF-UD-Q4_K_XL"
+edit_model = "ollama/gpt-oss:20b"
+displayed_models = ["lemonade/Qwen3.6-35B-A3B-GGUF-UD-Q4_K_XL"]
+custom_models = ["lemonade/Qwen3.6-35B-A3B-GGUF-UD-Q4_K_XL"]
+
+[runtime]
+show_tracebacks = false
+auto_instantiate = true
+default_sql_output = "auto"
+default_csv_encoding = "utf-8"
+std_stream_max_bytes = 1000000
+watcher_on_save = "lazy"
+on_cell_change = "lazy"
+output_max_bytes = 8000000
+auto_reload = "autorun"
+reactive_tests = true
+
+[server]
+follow_symlink = false
+browser = "default"
+
+[diagnostics]
+sql_linter = true
+
+[snippets]
+include_default_snippets = true
+custom_paths = []
+
+[keymap]
+preset = "default"
+
+[keymap.overrides]
+
+[package_management]
+manager = "uv"
+
+[completion]
+copilot = "custom"
+activate_on_typing = true
+signature_hint_on_typing = false
+
+[save]
+autosave_delay = 1000
+format_on_save = false
+autosave = "after_delay"
+
+[language_servers.pylsp]
+enable_pylint = false
+enable_pydocstyle = false
+enabled = false
+enable_ruff = true
+enable_flake8 = false
+enable_mypy = true
+enable_pyflakes = false
+
+[mcp]
+presets = []
+
+[mcp.mcpServers]
+
+[display]
+default_table_max_columns = 50
+cell_output = "below"
+theme = "system"
+default_width = "medium"
+reference_highlighting = true
+dataframes = "rich"
+code_editor_font_size = 14
+default_table_page_size = 10
