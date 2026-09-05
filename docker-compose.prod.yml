@@ -6,8 +6,7 @@ services:
     volumes:
       - /opt/docker/marimo/dev_notebooks:/home/app_user/app/notebooks
       - /opt/docker/marimo/.marimo.toml:/home/app_user/.marimo.toml
-    env_file:
-      - /opt/docker/marimo/.env
+      - /opt/docker/marimo/.env:/home/app_user/app/.env
     command: bash -c 'source /home/app_user/venv/bin/activate && marimo edit --no-token --headless -p ${MARIMO_PORT:-2718} --host ${MARIMO_HOST:-0.0.0.0}'
     healthcheck:
       test: [ "CMD", "curl", "-f", "http://127.0.0.1:2718/health" ]
@@ -21,7 +20,7 @@ services:
       - "traefik.http.routers.marimortr.rule=HOST(`marimo.trashcollector.dev`)"
       - "traefik.http.routers.marimortr.entrypoints=https"
       - "traefik.http.routers.marimortr.tls.certresolver=letsencrypt"
-      - "traefik.http.services.marimortr.loadbalancer.server.port=${MARIMO_PORT}"
+      - "traefik.http.services.marimortr.loadbalancer.server.port=${MARIMO_PORT:-2718}"
       - "traefik.docker.network=dev_lab"
 
       # For Authentik
