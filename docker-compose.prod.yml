@@ -4,13 +4,11 @@ services:
     image: ghcr.io/fineyoungcannibals/dev-marimo:latest
     restart: unless-stopped
     volumes:
-      - /opt/docker/marimo/.env:/home/app_user/app/.env
       - /opt/docker/marimo/dev_notebooks:/home/app_user/app/notebooks
-      - /opt/docker/marimo/config:/home/app_user/.config/marimo
-    environment:
-      MARIMO_HOST: ${MARIMO_HOST}
-      MARIMO_PORT: ${MARIMO_PORT}
-    command: bash -c 'source /home/app_user/venv/bin/activate && marimo edit --no-token --headless -p 2718 --host 0.0.0.0'
+      - /opt/docker/marimo/.marimo.toml:/home/app_user/.marimo.toml
+    env_file:
+      - /opt/docker/marimo/.env
+    command: bash -c 'source /home/app_user/venv/bin/activate && marimo edit --no-token --headless -p ${MARIMO_PORT:-2718} --host ${MARIMO_HOST:-0.0.0.0}'
     healthcheck:
       test: [ "CMD", "curl", "-f", "http://127.0.0.1:2718/health" ]
       interval: 30s

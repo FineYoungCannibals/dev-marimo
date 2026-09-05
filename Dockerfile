@@ -30,6 +30,7 @@ RUN mkdir -p /home/app_user/app/notebooks/utils /home/app_user/app
 ENV PYTHONPATH="/home/app_user/app/notebooks/utils:${PYTHONPATH}"
 
 COPY --chown=app_user:app_user pyproject.toml uv.lock /home/app_user/app/
+COPY --chown=app_user:app_user scripts/ /home/app_user/app/scripts/
 
 # Copy the entrypoint script.
 COPY --chown=app_user:app_user entrypoint.sh /entrypoint.sh

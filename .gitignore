@@ -174,4 +174,5 @@ cython_debug/
 # user ignores
 .marimo.toml
 dev_notebooks
+notebooks
 nginx.conf
