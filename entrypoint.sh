@@ -43,10 +43,5 @@ if [ -f "$MARIMO_CONFIG" ]; then
     || echo "Warning: could not refresh lemonade models, continuing with existing config."
 fi
 
-# TODO(mcp-2-migration): remove once marimo ships a release including
-# commit 849f16b6d ("feat(mcp): migrate to MCP 2 (#10581)") -- see
-# scripts/sitecustomize.py for details.
-export PYTHONPATH="$APP_DIR/scripts${PYTHONPATH:+:$PYTHONPATH}"
-
 # Execute the main command passed via CMD.
 exec "$@"
