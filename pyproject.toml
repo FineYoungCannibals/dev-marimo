@@ -26,7 +26,7 @@ dependencies = [
   "tabulate",
   "trino",
   "pyapiary>=2.5.0",
-  "marimo>=0.24.0",
+  "marimo>=0.24.2",
   "polars>=1.44.1",
   "pydantic-ai>=2.40.0",
   "tomlkit>=0.13.2",
